@@ -10,11 +10,11 @@ class App extends Component {
     return (
       <div className="App">
         <BrowserRouter>
-          <Category />
           <Switch>
             <Route exact path="/" component={ SearchBar } />
             <Route path="/shoppingcart" component={ ShoppingCart } />
           </Switch>
+          <Category />
         </BrowserRouter>
       </div>
     );

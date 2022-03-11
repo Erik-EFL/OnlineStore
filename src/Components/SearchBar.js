@@ -1,18 +1,79 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import * as api from '../services/api';
+import ProductCards from './ProductCards';
 
 class SearchBar extends Component {
+  constructor() {
+    super();
+    this.state = {
+      products: [],
+      inputName: '',
+    };
+  }
+
+  /*  esta  function faz a captura do valor digitado no input
+  e muda o estado inicial do inputName */
+  onChange = ({ target }) => {
+    console.log('oi');
+    const { value } = target;
+    this.setState({
+      inputName: value,
+    });
+  }
+
+  /*  Recebemos auxilio do nosso ilustríssimo Sugano  */
+  /* esta function passa para a API os valor buscado dentro do input
+  e insere um novo valor ao estado products */
+  getProductsApi = async () => {
+    const { inputName } = this.state;
+    const items = await api.getProductsFromCategory(inputName);
+    this.setState({
+      products: items,
+    });
+  }
+
   render() {
+    /*  importamos os estados abaixo para serem utilizado na renderização dos cards  */
+    const {
+      products, inputName,
+    } = this.state;
+
     return (
       <>
-        <input
-          type="text"
-        />
-        <p
-          data-testid="home-initial-message"
+        <div className="search-box">
+          <input
+            type="text"
+            name=""
+            placeholder="Pesquise aqui o seu produto"
+            data-testid="query-input"
+            value={ inputName }
+            onChange={ this.onChange } /* utilizado para capturar o valor do input como explicado acima */
+          />
+        </div>
+        <button
+          type="submit"
+          onClick={ this.getProductsApi } /* utilizado para executar o filtro */
+          data-testid="query-button"
         >
+          Pesquisar
+        </button>
+        <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
+        {/* verifica se o estado products esta vazio caso sim retorna a msg
+        caso não retorna os cards */}
+        {products.length > 0
+          ? products.map((item) => (
+            <ProductCards
+              key={ item.id }
+              title={ item.title }
+              thumbnail={ item.thumbnail }
+              price={ item.price }
+            />
+          ))
+          : <h3> Nenhum produto encontrado </h3>}
+
         <Link
           data-testid="shopping-cart-button"
           to="/shoppingcart"
