@@ -18,9 +18,9 @@ class Category extends Component {
 
   getApiCategories = async () => {
     /*  função criada para recurar os estados da categoria e setar o novo estado */
-    const getCargory = await api.getCategories();
+    const getCategory = await api.getCategories();
     this.setState({
-      category: getCargory,
+      category: getCategory,
     });
   }
 

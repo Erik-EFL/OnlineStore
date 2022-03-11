@@ -5,7 +5,6 @@ import SearchBar from './Components/SearchBar';
 import Category from './Components/Category';
 import ShoppingCart from './Components/ShoppingCart';
 
-
 class App extends Component {
   render() {
     return (
@@ -13,9 +12,9 @@ class App extends Component {
         <BrowserRouter>
           <Switch>
             <Route exact path="/" component={ SearchBar } />
-            <Category />
             <Route path="/shoppingcart" component={ ShoppingCart } />
           </Switch>
+          <Category />
         </BrowserRouter>
       </div>
     );
