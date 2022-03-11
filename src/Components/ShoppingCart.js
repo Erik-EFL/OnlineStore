@@ -5,11 +5,11 @@ class ShoppingCart extends Component {
   render() {
     return (
       <div>
+        <p data-testid="shopping-cart-empty-message">Seu carrinho está vazio</p>
         <Link
-          data-testid="shopping-cart-empty-message"
           to="/"
         >
-          Seu carrinho está vazio
+          Voltar
         </Link>
       </div>
     );
