@@ -7,6 +7,7 @@ class Category extends Component {
     this.state = {
       /*  criado para armazenar as categorias  */
       category: [],
+      categoryName: '',
     };
   }
 
@@ -24,29 +25,44 @@ class Category extends Component {
     });
   }
 
+  handleClick = async ({ target }) => {
+    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const categoryValue = await api.getProductsFromCategory(value);
+    console.log(categoryValue);
+    this.setState({
+      categoryName: categoryValue,
+    });
+  }
+
   render() {
     const {
-      category,
+      category, categoryName,
     } = this.state;
+    console.log(categoryName);
     return (
-      <div>
-        <div className="sidebar">
-          {
-            /* O map esta fazendo o mapeamento do estado category
+
+      <div className="sidebar">
+        {
+          /* O map esta fazendo o mapeamento do estado category
             onde foram armazenados os dados retirados a api */
-            category.map((categories) => (
-              <label key={ categories.id } htmlFor={ categories.id }>
+          category.map((categories) => (
+            <div key={ categories.id }>
+              <label htmlFor={ categories.id }>
                 <input
                   data-testid="category"
-                  type="radio"
+                  value={ categories.name }
+                  onClick={ this.handleClick }
+                  name={ categories.name }
+                  type="button"
                   id={ categories.id }
                 />
                 { categories.name }
               </label>
-            ))
-          }
-        </div>
+            </div>
+          ))
+        }
       </div>
+
     );
   }
 }
