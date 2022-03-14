@@ -4,6 +4,7 @@ import './App.css';
 import SearchBar from './Components/SearchBar';
 import Category from './Components/Category';
 import ShoppingCart from './Components/ShoppingCart';
+import ShowItem from './Components/ShowItem';
 
 class App extends Component {
   render() {
@@ -13,6 +14,13 @@ class App extends Component {
           <Switch>
             <Route exact path="/" component={ SearchBar } />
             <Route path="/shoppingcart" component={ ShoppingCart } />
+            <Route
+              exact
+              path="/showitem/:id"
+              render={
+                (props) => <ShowItem { ...props.match.params } />
+              }
+            />
           </Switch>
           <Category />
         </BrowserRouter>
