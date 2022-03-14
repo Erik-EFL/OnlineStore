@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import { AiOutlineShoppingCart } from 'react-icons/ai';
 import * as api from '../services/api';
 import ProductCards from './ProductCards';
 
@@ -15,7 +16,6 @@ class SearchBar extends Component {
   /*  esta  function faz a captura do valor digitado no input
   e muda o estado inicial do inputName */
   onChange = ({ target }) => {
-    console.log('oi');
     const { value } = target;
     this.setState({
       inputName: value,
@@ -51,6 +51,7 @@ class SearchBar extends Component {
             onChange={ this.onChange } /* utilizado para capturar o valor do input como explicado acima */
           />
         </div>
+
         <button
           type="submit"
           onClick={ this.getProductsApi } /* utilizado para executar o filtro */
@@ -78,7 +79,7 @@ class SearchBar extends Component {
           data-testid="shopping-cart-button"
           to="/shoppingcart"
         >
-          Carrinho de Compras
+          <h1><AiOutlineShoppingCart /></h1>
         </Link>
         <p>Você ainda não realizou nenhuma busca</p>
       </>
