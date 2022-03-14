@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as api from '../services/api';
+import ProductCards from './ProductCards';
 
 class Category extends Component {
   constructor() {
@@ -7,7 +8,7 @@ class Category extends Component {
     this.state = {
       /*  criado para armazenar as categorias  */
       category: [],
-      categoryName: '',
+      productsByCategory: [],
     };
   }
 
@@ -26,41 +27,54 @@ class Category extends Component {
   }
 
   handleClick = async ({ target }) => {
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    // Captura o Value da categoria clicada, faz busca na api com o value e adiciona no estado.
+    const { value } = target;
     const categoryValue = await api.getProductsFromCategory(value);
-    console.log(categoryValue);
     this.setState({
-      categoryName: categoryValue,
+      productsByCategory: categoryValue,
     });
   }
 
   render() {
     const {
-      category, categoryName,
+      category, productsByCategory,
     } = this.state;
-    console.log(categoryName);
     return (
-
-      <div className="sidebar">
-        {
-          /* O map esta fazendo o mapeamento do estado category
-            onde foram armazenados os dados retirados a api */
-          category.map((categories) => (
-            <div key={ categories.id }>
-              <label htmlFor={ categories.id }>
-                <input
-                  data-testid="category"
-                  value={ categories.name }
-                  onClick={ this.handleClick }
-                  name={ categories.name }
-                  type="button"
-                  id={ categories.id }
-                />
-                { categories.name }
-              </label>
-            </div>
-          ))
-        }
+      <div>
+        <div className="sidebar">
+          {
+            /* O map esta fazendo o mapeamento do estado category
+              onde foram armazenados os dados retirados a api */
+            category.map((categories) => (
+              <div key={ categories.id }>
+                <label htmlFor={ categories.id }>
+                  <input
+                    data-testid="category"
+                    value={ categories.name }
+                    onClick={ this.handleClick }
+                    name={ categories.name }
+                    type="button"
+                    id={ categories.id }
+                  />
+                  { categories.name }
+                </label>
+              </div>
+            ))
+          }
+        </div>
+        <div>
+          {
+            productsByCategory.map((item) => (
+              // Mapeia e renderiza os produtos pesquisados pela categoria.
+              <ProductCards
+                key={ item.id }
+                title={ item.title }
+                thumbnail={ item.thumbnail }
+                price={ item.price }
+              />
+            ))
+          }
+        </div>
       </div>
 
     );
