@@ -12,7 +12,7 @@ class ShowItem extends Component {
   }
 
   componentDidMount = () => {
-    const { match: { params: { id } } } = this.props;
+    const { id } = this.props;
     this.getAtributes(id);
   }
 
@@ -30,7 +30,6 @@ class ShowItem extends Component {
 
   render() {
     const { atributes } = this.state;
-    console.log(atributes);
     return (
       <div>
         <div>

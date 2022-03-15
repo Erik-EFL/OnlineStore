@@ -53,16 +53,14 @@ class App extends Component {
               exact
               path="/showitem/:id"
               render={
-                (props) => <ShowItem { ...props } />
+                (props) => <ShowItem { ...props.match.params } />
               }
             />
             <Route
               exact
               path="/"
               render={
-                () => (<SearchBar
-                  addToCart={ this.addToCart }
-                />)
+                () => (<SearchBar addToCart={ this.addToCart } />)
               }
             />
           </Switch>

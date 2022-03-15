@@ -5,7 +5,6 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import * as api from '../services/api';
 import ProductCards from './ProductCards';
 import Category from './Category';
-// import ShowItem from './ShowItem';
 
 class SearchBar extends Component {
   constructor() {
@@ -33,7 +32,6 @@ class SearchBar extends Component {
     this.setState({
       products: items,
     });
-    console.log(items);
   }
 
   productId = async () => {
@@ -72,14 +70,14 @@ class SearchBar extends Component {
         </p>
         {/* verifica se o estado products esta vazio caso sim retorna a msg
         caso não retorna os cards */}
-        {products.length
+        {products.length > 0
           ? products.map((item) => (
             <ProductCards
               key={ item.id }
-              /* thumbnail={ product.thumbnail }
-              title={ product.title }
-              price={ product.price }
-              id={ product.id } */
+              /*               thumbnail={ item.thumbnail }
+              title={ item.title }
+              price={ item.price }
+              id={ item.id } */
               product={ item }
               onClick={ this.productId }
               addToCart={ addToCart }

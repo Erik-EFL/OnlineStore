@@ -35,6 +35,11 @@ class Category extends Component {
     });
   }
 
+  productId = async () => {
+    const { id } = this.state;
+    await api.getProductDetails(id);
+  }
+
   render() {
     const {
       category, productsByCategory,
@@ -68,9 +73,10 @@ class Category extends Component {
               // Mapeia e renderiza os produtos pesquisados pela categoria.
               <ProductCards
                 key={ item.id }
-                title={ item.title }
+                /*                 title={ item.title }
                 thumbnail={ item.thumbnail }
-                price={ item.price }
+                price={ item.price } */
+                product={ item }
               />
             ))
           }
