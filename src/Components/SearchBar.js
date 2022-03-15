@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import * as api from '../services/api';
 import ProductCards from './ProductCards';
+import Category from './Category';
 // import ShowItem from './ShowItem';
 
 class SearchBar extends Component {
@@ -14,10 +14,6 @@ class SearchBar extends Component {
       inputName: '',
     };
   }
-
-  /*     componentDidMount = () => {
-      const { match: { params: { id } } } = this.props;
-    } */
 
   /*  esta  function faz a captura do valor digitado no input
   e muda o estado inicial do inputName */
@@ -95,17 +91,10 @@ class SearchBar extends Component {
           <h1><AiOutlineShoppingCart /></h1>
         </Link>
         <p>Você ainda não realizou nenhuma busca</p>
+        <Category />
       </>
     );
   }
 }
-
-SearchBar.propTypes = {
-  match: PropTypes.shape({
-    params: PropTypes.shape({
-      id: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
-};
 
 export default SearchBar;

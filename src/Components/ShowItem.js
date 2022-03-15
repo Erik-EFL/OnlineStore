@@ -8,14 +8,11 @@ class ShowItem extends Component {
     super();
     this.state = {
       atributes: [],
-      name: '',
-      price: '',
-      thumbnail: '',
     };
   }
 
   componentDidMount = () => {
-    const { match: { params: { id } } } = this.props;
+    const { id } = this.props;
     this.getAtributes(id);
   }
 
@@ -27,38 +24,24 @@ class ShowItem extends Component {
   }
 
   render() {
-    const { name, imagem, price, atributes } = this.props;
+    const { atributes } = this.state;
+    console.log(atributes);
     return (
       <div>
         <Link to="/shoppingcart">Carrinho</Link>
-        <Link to="/searchbar">Search</Link>
-
-        {atributes.map((atribute) => (
-          <div key={ atribute.id } className="container-product">
-            <h2 data-testid="product-detail-name">
-              {`${atribute.name} - <span>${atribute.price}</span>`}
-            </h2>
-            <div className="img-container">
-              <img src={ atribute.imagem } alt={ atribute.name } />
-            </div>
-            <div className="spec-container">
-              <h4>Especificações Técnicas</h4>
-              <ul>
-                <li>{ atribute }</li>
-              </ul>
-            </div>
-          </div>
-        ))}
+        <Link to="/">Search</Link>
+        <div className="container-product" key={ atributes.id }>
+          <h2 data-testid="product-detail-name">{atributes.title}</h2>
+          <img src={ atributes.thumbnail } alt={ atributes.title } />
+          <p>{atributes.price}</p>
+        </div>
       </div>
     );
   }
 }
 
 ShowItem.propTypes = {
-  name: PropTypes.string,
-  imagem: PropTypes.string,
-  price: PropTypes.string,
-  atributes: PropTypes.objectOf(PropTypes.any),
+  id: PropTypes.string,
 }.isRequired;
 
 export default ShowItem;
