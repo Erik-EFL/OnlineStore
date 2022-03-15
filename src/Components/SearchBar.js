@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import * as api from '../services/api';
@@ -19,15 +20,14 @@ class SearchBar extends Component {
   e muda o estado inicial do inputName */
   onChange = ({ target }) => {
     const { value } = target;
-    this.setState({
-      inputName: value,
-    });
+    this.setState({ inputName: value });
   }
 
   /*  Recebemos auxilio do nosso ilustríssimo Sugano  */
   /* esta function passa para a API os valor buscado dentro do input
   e insere um novo valor ao estado products */
-  getProductsApi = async () => {
+  getProductsApi = async (event) => {
+    event.preventDefault();
     const { inputName } = this.state;
     const items = await api.getProductsFromCategory(inputName);
     this.setState({
@@ -45,7 +45,7 @@ class SearchBar extends Component {
     const {
       products, inputName,
     } = this.state;
-
+    const { addToCart } = this.props;
     return (
       <>
         <div className="search-box">
@@ -71,24 +71,24 @@ class SearchBar extends Component {
         </p>
         {/* verifica se o estado products esta vazio caso sim retorna a msg
         caso não retorna os cards */}
-        {products.length > 0
-          ? products.map((item) => (
+        {products.length
+          ? products.map((product) => (
             <ProductCards
-              key={ item.id }
-              id={ item.id }
-              title={ item.title }
-              thumbnail={ item.thumbnail }
-              price={ item.price }
+              key={ product.id }
+              thumbnail={ product.thumbnail }
+              title={ product.title }
+              price={ product.price }
+              id={ product.id }
               onClick={ this.productId }
+              addToCart={ addToCart }
             />
           ))
           : <h3> Nenhum produto encontrado </h3>}
 
         <Link
-          data-testid="shopping-cart-button"
           to="/shoppingcart"
         >
-          <h1><AiOutlineShoppingCart /></h1>
+          <h1><AiOutlineShoppingCart data-testid="shopping-cart-button" /></h1>
         </Link>
         <p>Você ainda não realizou nenhuma busca</p>
         <Category />
@@ -96,5 +96,9 @@ class SearchBar extends Component {
     );
   }
 }
+
+SearchBar.propTypes = {
+  addToCart: PropTypes.func.isRequired,
+};
 
 export default SearchBar;
