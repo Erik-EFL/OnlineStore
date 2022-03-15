@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import * as api from '../services/api';
 import ProductCards from './ProductCards';
+import Category from './Category';
+// import ShowItem from './ShowItem';
 
 class SearchBar extends Component {
   constructor() {
@@ -31,6 +33,11 @@ class SearchBar extends Component {
     this.setState({
       products: items,
     });
+  }
+
+  productId = async () => {
+    const { id } = this.state;
+    await api.getProductDetails(id);
   }
 
   render() {
@@ -68,9 +75,11 @@ class SearchBar extends Component {
           ? products.map((item) => (
             <ProductCards
               key={ item.id }
+              id={ item.id }
               title={ item.title }
               thumbnail={ item.thumbnail }
               price={ item.price }
+              onClick={ this.productId }
             />
           ))
           : <h3> Nenhum produto encontrado </h3>}
@@ -82,6 +91,7 @@ class SearchBar extends Component {
           <h1><AiOutlineShoppingCart /></h1>
         </Link>
         <p>Você ainda não realizou nenhuma busca</p>
+        <Category />
       </>
     );
   }
