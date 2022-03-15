@@ -88,7 +88,7 @@ class SearchBar extends Component {
           data-testid="shopping-cart-button"
           to="/shoppingcart"
         >
-          <h1><AiOutlineShoppingCart /></h1>
+          <h1>Seu carrinho está vazio</h1>
         </Link>
         <p>Você ainda não realizou nenhuma busca</p>
         <Category />
