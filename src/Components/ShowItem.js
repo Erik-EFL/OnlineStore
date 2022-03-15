@@ -23,17 +23,33 @@ class ShowItem extends Component {
     });
   }
 
+  onclick = ({ target }) => {
+    const product = target.parentNode;
+    console.log(product);
+  }
+
   render() {
     const { atributes } = this.state;
     console.log(atributes);
     return (
       <div>
-        <Link to="/shoppingcart">Carrinho</Link>
-        <Link to="/">Search</Link>
-        <div className="container-product" key={ atributes.id }>
-          <h2 data-testid="product-detail-name">{atributes.title}</h2>
-          <img src={ atributes.thumbnail } alt={ atributes.title } />
-          <p>{atributes.price}</p>
+        <div>
+          <Link to="/shoppingcart">Carrinho</Link>
+          <Link to="/">Search</Link>
+        </div>
+        <div>
+          <div className="container-product" key={ atributes.id }>
+            <h2 data-testid="product-detail-name">{atributes.title}</h2>
+            <img src={ atributes.thumbnail } alt={ atributes.title } />
+            <p>{atributes.price}</p>
+          </div>
+          <button
+            type="button"
+            data-testid="product-detail-add-to-cart"
+            onClick={ this.onclick }
+          >
+            Adicionar ao Carrinho
+          </button>
         </div>
       </div>
     );
