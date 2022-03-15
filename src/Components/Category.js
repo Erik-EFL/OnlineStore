@@ -79,6 +79,7 @@ class Category extends Component {
                 price={ item.price } */
               product={ item }
               addToCart={ addToCart }
+              productId={ this.productId }
             />
           ))}
         </div>
