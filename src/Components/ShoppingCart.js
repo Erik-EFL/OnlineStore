@@ -4,6 +4,14 @@ import React, { Component } from 'react';
 import CartItem from './CartItem';
 
 class ShoppingCart extends Component {
+  constructor() {
+    super();
+    this.state({
+      quantyCart: 1,
+      itemsCart: [],
+    });
+  }
+
   render() {
     const { cartListItem } = this.props;
     return (
