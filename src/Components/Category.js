@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import * as api from '../services/api';
 import ProductCards from './ProductCards';
 
@@ -44,6 +45,7 @@ class Category extends Component {
     const {
       category, productsByCategory,
     } = this.state;
+    const { addToCart } = this.props;
     return (
       <div>
         <div className="sidebar">
@@ -68,22 +70,25 @@ class Category extends Component {
           }
         </div>
         <div>
-          {
-            productsByCategory.map((item) => (
-              // Mapeia e renderiza os produtos pesquisados pela categoria.
-              <ProductCards
-                key={ item.id }
-                /*                 title={ item.title }
+          {productsByCategory.map((item) => (
+            // Mapeia e renderiza os produtos pesquisados pela categoria.
+            <ProductCards
+              key={ item.id }
+              /* title={ item.title }
                 thumbnail={ item.thumbnail }
                 price={ item.price } */
-                product={ item }
-              />
-            ))
-          }
+              product={ item }
+              addToCart={ addToCart }
+            />
+          ))}
         </div>
       </div>
     );
   }
 }
+
+Category.propTypes = {
+  addToCart: PropTypes.func.isRequired,
+}.isRequired;
 
 export default Category;
