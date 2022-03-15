@@ -53,7 +53,7 @@ class App extends Component {
               exact
               path="/showitem/:id"
               render={
-                (props) => <ShowItem { ...props.match.params } />
+                (props) => <ShowItem { ...props } />
               }
             />
             <Route

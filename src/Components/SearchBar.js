@@ -26,13 +26,14 @@ class SearchBar extends Component {
   /*  Recebemos auxilio do nosso ilustríssimo Sugano  */
   /* esta function passa para a API os valor buscado dentro do input
   e insere um novo valor ao estado products */
-  getProductsApi = async (event) => {
-    event.preventDefault();
+  getProductsApi = async () => {
+    // event.preventDefault();
     const { inputName } = this.state;
     const items = await api.getProductsFromCategory(inputName);
     this.setState({
       products: items,
     });
+    console.log(items);
   }
 
   productId = async () => {
@@ -60,7 +61,7 @@ class SearchBar extends Component {
         </div>
 
         <button
-          type="submit"
+          type="button"
           onClick={ this.getProductsApi } /* utilizado para executar o filtro */
           data-testid="query-button"
         >
@@ -72,13 +73,14 @@ class SearchBar extends Component {
         {/* verifica se o estado products esta vazio caso sim retorna a msg
         caso não retorna os cards */}
         {products.length
-          ? products.map((product) => (
+          ? products.map((item) => (
             <ProductCards
-              key={ product.id }
-              thumbnail={ product.thumbnail }
+              key={ item.id }
+              /* thumbnail={ product.thumbnail }
               title={ product.title }
               price={ product.price }
-              id={ product.id }
+              id={ product.id } */
+              product={ item }
               onClick={ this.productId }
               addToCart={ addToCart }
             />

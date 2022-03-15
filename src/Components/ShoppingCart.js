@@ -4,13 +4,13 @@ import React, { Component } from 'react';
 import CartItem from './CartItem';
 
 class ShoppingCart extends Component {
-  constructor() {
+/*   constructor() {
     super();
     this.state({
       quantyCart: 1,
       itemsCart: [],
     });
-  }
+  } */
 
   render() {
     const { cartListItem } = this.props;
@@ -18,12 +18,9 @@ class ShoppingCart extends Component {
       <div>
         { cartListItem.length === 0
           ? (
-            <>
-              <h1 data-testid="shopping-cart-empty-message">
-                Seu carrinho está vazio
-              </h1>
-              <Link to="/">Voltar</Link>
-            </>
+            <h1 data-testid="shopping-cart-empty-message">
+              Seu carrinho está vazio
+            </h1>
           )
           : cartListItem.map((item) => (
             <CartItem
@@ -31,6 +28,7 @@ class ShoppingCart extends Component {
               key={ item.product.id }
             />
           ))}
+        <Link to="/">Voltar</Link>
       </div>
     );
   }
