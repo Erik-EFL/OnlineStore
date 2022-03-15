@@ -3,10 +3,18 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 class ProductCards extends Component {
+  handleClick = (_event, product) => {
+    const { addToCart } = this.props;
+    addToCart(product);
+  }
+
   render() {
     /*  criamos as porps para serem utilizados no documento pai (SearchBar)
     este componente esta limitado a renderizar cada card */
-    const { thumbnail, title, price, id } = this.props;
+    const { product: { thumbnail, title, price, id } } = this.props;
+    const { product } = this.props;
+    // console.log(thumbnail);
+    /* const { thumbnail, title, price, id } = this.props; */
     return (
       <div className="card-container">
         <Link data-testid="product-detail-link" to={ `/showitem/${id}` }>
@@ -16,6 +24,13 @@ class ProductCards extends Component {
             <p>{price}</p>
           </div>
         </Link>
+        <button
+          type="button"
+          onClick={ (event) => this.handleClick(event, product) }
+          data-testid="product-add-to-cart"
+        >
+          Adicionar ao carrinho
+        </button>
       </div>
     );
   }
@@ -23,10 +38,12 @@ class ProductCards extends Component {
 
 /*  aqui é feita a validação das props que serão utilizadas no (SearchBar)   */
 ProductCards.propTypes = {
-  price: PropTypes.string,
-  thumbnail: PropTypes.string,
+/*   thumbnail: PropTypes.string,
   title: PropTypes.string,
-  id: PropTypes.string,
+  price: PropTypes.string,
+  id: PropTypes.string, */
+  product: PropTypes.objectOf(PropTypes.any).isRequired,
+  addToCart: PropTypes.func.isRequired,
 }.isRequired;
 
 export default ProductCards;

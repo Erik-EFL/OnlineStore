@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import * as api from '../services/api';
 import ProductCards from './ProductCards';
 import Category from './Category';
-// import ShowItem from './ShowItem';
 
 class SearchBar extends Component {
   constructor() {
@@ -19,15 +19,14 @@ class SearchBar extends Component {
   e muda o estado inicial do inputName */
   onChange = ({ target }) => {
     const { value } = target;
-    this.setState({
-      inputName: value,
-    });
+    this.setState({ inputName: value });
   }
 
   /*  Recebemos auxilio do nosso ilustríssimo Sugano  */
   /* esta function passa para a API os valor buscado dentro do input
   e insere um novo valor ao estado products */
   getProductsApi = async () => {
+    // event.preventDefault();
     const { inputName } = this.state;
     const items = await api.getProductsFromCategory(inputName);
     this.setState({
@@ -45,7 +44,7 @@ class SearchBar extends Component {
     const {
       products, inputName,
     } = this.state;
-
+    const { addToCart } = this.props;
     return (
       <>
         <div className="search-box">
@@ -60,7 +59,7 @@ class SearchBar extends Component {
         </div>
 
         <button
-          type="submit"
+          type="button"
           onClick={ this.getProductsApi } /* utilizado para executar o filtro */
           data-testid="query-button"
         >
@@ -75,20 +74,21 @@ class SearchBar extends Component {
           ? products.map((item) => (
             <ProductCards
               key={ item.id }
-              id={ item.id }
+              /*               thumbnail={ item.thumbnail }
               title={ item.title }
-              thumbnail={ item.thumbnail }
               price={ item.price }
+              id={ item.id } */
+              product={ item }
               onClick={ this.productId }
+              addToCart={ addToCart }
             />
           ))
           : <h3> Nenhum produto encontrado </h3>}
 
         <Link
-          data-testid="shopping-cart-button"
           to="/shoppingcart"
         >
-          <h1><AiOutlineShoppingCart /></h1>
+          <h1><AiOutlineShoppingCart data-testid="shopping-cart-button" /></h1>
         </Link>
         <p>Você ainda não realizou nenhuma busca</p>
         <Category />
@@ -96,5 +96,9 @@ class SearchBar extends Component {
     );
   }
 }
+
+SearchBar.propTypes = {
+  addToCart: PropTypes.func.isRequired,
+};
 
 export default SearchBar;
