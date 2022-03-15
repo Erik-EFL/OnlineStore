@@ -13,8 +13,6 @@ class ProductCards extends Component {
     este componente esta limitado a renderizar cada card */
     const { product: { thumbnail, title, price, id } } = this.props;
     const { product } = this.props;
-    // console.log(thumbnail);
-    /* const { thumbnail, title, price, id } = this.props; */
     return (
       <div className="card-container">
         <Link data-testid="product-detail-link" to={ `/showitem/${id}` }>
@@ -38,10 +36,6 @@ class ProductCards extends Component {
 
 /*  aqui é feita a validação das props que serão utilizadas no (SearchBar)   */
 ProductCards.propTypes = {
-/*   thumbnail: PropTypes.string,
-  title: PropTypes.string,
-  price: PropTypes.string,
-  id: PropTypes.string, */
   product: PropTypes.objectOf(PropTypes.any).isRequired,
   addToCart: PropTypes.func.isRequired,
 }.isRequired;

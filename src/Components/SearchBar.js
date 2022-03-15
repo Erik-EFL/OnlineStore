@@ -74,7 +74,7 @@ class SearchBar extends Component {
           ? products.map((item) => (
             <ProductCards
               key={ item.id }
-              /*               thumbnail={ item.thumbnail }
+              /* thumbnail={ item.thumbnail }
               title={ item.title }
               price={ item.price }
               id={ item.id } */
