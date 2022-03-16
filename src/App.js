@@ -56,7 +56,7 @@ class App extends Component {
                 (props) => (<ShowItem
                   id={ props.match.params.id }
                   addToCart={ this.addToCart }
-q                />)
+                />)
               }
             />
             <Route
