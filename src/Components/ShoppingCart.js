@@ -1,17 +1,9 @@
-import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import CartItem from './CartItem';
 
 class ShoppingCart extends Component {
-/*   constructor() {
-    super();
-    this.state({
-      quantyCart: 1,
-      itemsCart: [],
-    });
-  } */
-
   render() {
     const { cartListItem } = this.props;
     return (
