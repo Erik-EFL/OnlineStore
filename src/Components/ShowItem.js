@@ -23,13 +23,9 @@ class ShowItem extends Component {
     });
   }
 
-  onclick = ({ target }) => {
-    const product = target.parentNode;
-    console.log(product);
-  }
-
   render() {
     const { atributes } = this.state;
+    const { addToCart } = this.props;
     return (
       <div>
         <div>
@@ -45,7 +41,7 @@ class ShowItem extends Component {
           <button
             type="button"
             data-testid="product-detail-add-to-cart"
-            onClick={ this.onclick }
+            onClick={ addToCart }
           >
             Adicionar ao Carrinho
           </button>

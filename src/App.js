@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, BrowserRouter, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import './App.css';
 import SearchBar from './Components/SearchBar';
 import ShoppingCart from './Components/ShoppingCart';
@@ -53,7 +53,10 @@ class App extends Component {
               exact
               path="/showitem/:id"
               render={
-                (props) => <ShowItem { ...props.match.params } />
+                (props) => (<ShowItem
+                  id={ props.match.params.id }
+                  addToCart={ this.addToCart }
+                />)
               }
             />
             <Route
