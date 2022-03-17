@@ -7,8 +7,13 @@ class ShowItem extends Component {
   constructor() {
     super();
     this.state = {
-      atributes: [],
+      product: [],
     };
+  }
+
+  handleClick = (_event, product) => {
+    const { addToCart } = this.props;
+    addToCart(product);
   }
 
   componentDidMount = () => {
@@ -19,29 +24,29 @@ class ShowItem extends Component {
   getAtributes = async (id) => {
     const items = await api.getProductDetails(id);
     this.setState({
-      atributes: items,
+      product: items,
     });
   }
 
   render() {
-    const { atributes } = this.state;
-    const { addToCart } = this.props;
+    const { product: { id, title, thumbnail, price } } = this.state;
+    const { product } = this.state;
     return (
       <div>
         <div>
-          <Link to="/shoppingcart">Carrinho</Link>
+          <Link data-testid="shopping-cart-button" to="/shoppingcart">Carrinho</Link>
           <Link to="/">Search</Link>
         </div>
         <div>
-          <div className="container-product" key={ atributes.id }>
-            <h2 data-testid="product-detail-name">{atributes.title}</h2>
-            <img src={ atributes.thumbnail } alt={ atributes.title } />
-            <p>{atributes.price}</p>
+          <div className="container-product" key={ id }>
+            <h2 data-testid="product-detail-name">{title}</h2>
+            <img src={ thumbnail } alt={ title } />
+            <p>{price}</p>
           </div>
           <button
             type="button"
             data-testid="product-detail-add-to-cart"
-            onClick={ addToCart }
+            onClick={ (event) => this.handleClick(event, product) }
           >
             Adicionar ao Carrinho
           </button>
@@ -52,7 +57,8 @@ class ShowItem extends Component {
 }
 
 ShowItem.propTypes = {
-  id: PropTypes.string,
+  id: PropTypes.string.isRequired,
+  addToCart: PropTypes.func.isRequired,
 }.isRequired;
 
 export default ShowItem;

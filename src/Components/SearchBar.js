@@ -85,10 +85,8 @@ class SearchBar extends Component {
           ))
           : <h3> Nenhum produto encontrado </h3>}
 
-        <Link
-          to="/shoppingcart"
-        >
-          <h1><AiOutlineShoppingCart data-testid="shopping-cart-button" /></h1>
+        <Link data-testid="shopping-cart-button" to="/shoppingcart">
+          <AiOutlineShoppingCart />
         </Link>
         <p>Você ainda não realizou nenhuma busca</p>
         <Category addToCart={ addToCart } />
