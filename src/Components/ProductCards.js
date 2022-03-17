@@ -8,6 +8,7 @@ class ProductCards extends Component {
     addToCart(product);
   }
 
+  /* oi */
   render() {
     /*  criamos as porps para serem utilizados no documento pai (SearchBar)
     este componente esta limitado a renderizar cada card */
